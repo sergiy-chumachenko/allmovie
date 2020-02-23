@@ -36,6 +36,9 @@ jobs:
         DB_HOST='localhost'
         DB_PORT='5432'
         EOT
+    - name: Migration
+      run: |
+        python manage.py migrate
     - name: Test with pytest
       run: |
         # pip install pytest
