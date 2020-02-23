@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-lates
 
     steps:
     - uses: actions/checkout@v2
@@ -27,7 +27,15 @@ jobs:
     - name: Create '.env' file for testing
       run: |
         touch .env
-        echo SECRET_KEY='SECRET_KEY' > .env
+        cat <<EOT >> .env
+        SECRET_KEY='SECRET_KEY'
+        DEBUG=True
+        DB_NAME='test_db'
+        DB_USER='test_user'
+        DB_PASSWORD='test'
+        DB_HOST='localhost'
+        DB_PORT='5432'
+        EOT
     - name: Test with pytest
       run: |
         # pip install pytest
