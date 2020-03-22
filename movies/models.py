@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from datetime import date
 
@@ -64,6 +65,9 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('movie_detail', kwargs={'slug': self.url})
+
     class Meta:
         verbose_name = 'Movie'
         verbose_name_plural = 'Movies'
@@ -119,3 +123,10 @@ class Review(models.Model):
         null=True
     )
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name} - {self.movie}"
+
+    class Meta:
+        verbose_name = "Review"
+        verbose_name_plural = "Reviews"
